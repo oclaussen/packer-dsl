@@ -18,5 +18,5 @@
 
 module PackerDSL
   require 'packer_dsl/template'
-  require 'packer_dsl/builder'
+  require 'packer_dsl/builders'
 end

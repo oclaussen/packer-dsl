@@ -15,25 +15,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-require 'packer_dsl/mixins/hashable'
+# rubocop:disable Style/ClassVars
 
 module PackerDSL
-  class Builder
-    include Hashable
+  module Builders
+    module_function
 
-    def self.from_type(type, &blk)
-      new_builder = Builder.new(type)
+    def register(type, cls)
+      (@@registry ||= {})[type.to_sym] = cls
+    end
+
+    def from_type(type, &blk)
+      new_builder = (@@registry ||= {})[type.to_sym].new
+      new_builder.type type
       new_builder.instance_eval(&blk) if block_given?
       new_builder
     end
-
-    def hashable_variables
-      [:type]
-    end
-
-    def initialize(type)
-      @type = type
-    end
   end
 end
+
+require 'packer_dsl/builders/amazon_builder'
+require 'packer_dsl/builders/virtualbox_builder'
+require 'packer_dsl/builders/virtualbox/virtualbox_iso_builder'
+require 'packer_dsl/builders/virtualbox/virtualbox_ovf_builder'

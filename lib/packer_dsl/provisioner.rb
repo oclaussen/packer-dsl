@@ -23,17 +23,12 @@ module PackerDSL
     include Hashable
 
     def self.from_type(type, &blk)
-      new_builder = Provisioner.new(type)
-      new_builder.instance_eval(&blk) if block_given?
-      new_builder
+      new_provisioner = Provisioner.new
+      new_provisioner.type type
+      new_provisioner.instance_eval(&blk) if block_given?
+      new_provisioner
     end
 
-    def hashable_variables
-      [:type]
-    end
-
-    def initialize(type)
-      @type = type
-    end
+    property :type
   end
 end

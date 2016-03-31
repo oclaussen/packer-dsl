@@ -18,18 +18,32 @@
 
 module PackerDSL
   module Hashable
-    def hashable_variables
-      []
+    def self.included(base_class)
+      base_class.extend(ClassMethods)
+    end
+
+    module ClassMethods
+      def hashable_variables
+        # rubocop:disable Style/ClassVars
+        @@hashable_variables ||= []
+      end
+
+      def property(name)
+        hashable_variables << name
+        define_method name.to_sym do |value|
+          instance_variable_set("@#{name}".to_sym, value)
+        end
+      end
     end
 
     def to_h
       result = {}
-      hashable_variables.each do |var|
-        var_name = "@#{var}".to_sym
+      self.class.hashable_variables.each do |prop|
+        var_name = "@#{prop}".to_sym
         next unless instance_variable_defined?(var_name)
         value = instance_variable_get(var_name)
         value = to_hash_helper(value)
-        result[var.to_s] = value
+        result[prop.to_s] = value
       end
       result
     end
