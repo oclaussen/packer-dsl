@@ -35,6 +35,15 @@ module PackerDSL
 end
 
 require 'packer_dsl/builders/amazon_builder'
+require 'packer_dsl/builders/amazon/amazon_chroot_builder'
+require 'packer_dsl/builders/amazon/amazon_ebs_builder'
+require 'packer_dsl/builders/amazon/amazon_instance_builder'
+require 'packer_dsl/builders/docker_builder'
+require 'packer_dsl/builders/null_builder'
+require 'packer_dsl/builders/qemu_builder'
 require 'packer_dsl/builders/virtualbox_builder'
 require 'packer_dsl/builders/virtualbox/virtualbox_iso_builder'
 require 'packer_dsl/builders/virtualbox/virtualbox_ovf_builder'
+require 'packer_dsl/builders/vmware_builder'
+require 'packer_dsl/builders/vmware/vmware_iso_builder'
+require 'packer_dsl/builders/vmware/vmware_vmx_builder'
