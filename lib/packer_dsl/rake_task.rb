@@ -16,23 +16,25 @@
 # limitations under the License.
 #
 
-require 'json'
-require 'packer_dsl/template'
+require 'rake'
+require 'rake/tasklib'
+require 'packer_dsl'
 
 module PackerDSL
-  module_function
+  class RakeTask < ::Rake::TaskLib
+    attr_accessor :name, :files, :output_directory
 
-  def convert(*files, output_dir: nil)
-    files.each do |file|
-      template = PackerDSL::Template.new
-      template.from_file(file)
-      template = JSON.pretty_generate(template.to_h)
+    def initialize(name = :packer_convert)
+      @name = name
+      @files = []
+      @output_directory = nil
 
-      output_dir ||= File.dirname(file)
-      Dir.mkdir(output_dir) unless File.exist?(output_dir)
-      target = File.basename(file, '.rb')
-      target = File.join(output_dir, "#{target}.json")
-      File.open(target, 'w') { |f| f.write(template) }
+      yield self if block_given?
+
+      desc 'Convert Packer DSL files' unless ::Rake.application.last_description
+      task(name) do
+        PackerDSL.convert(*@files, output_dir: @output_directory)
+      end
     end
   end
 end

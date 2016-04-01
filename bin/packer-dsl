@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+# encoding: UTF-8
+# frozen_string_literal: true
+
+require 'thor'
+require 'packer_dsl'
+
+module PackerDSL
+  class CLI < Thor
+    package_name 'PackerCLI'
+
+    desc 'convert FILES', 'Convert Packer DSL files into Packer json templates'
+
+    option :output_dir,
+           banner: 'OUTPUT_DIRECTORY',
+           desc: 'The target directory for the Packer templates',
+           type: :string
+
+    def convert(files)
+      PackerDSL.convert(*files, output_dir: options[:output_dir])
+    end
+  end
+end
+
+PackerDSL::CLI.start(ARGV)
