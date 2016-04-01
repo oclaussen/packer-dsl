@@ -17,6 +17,7 @@
 #
 
 require 'packer_dsl/builders'
+require 'packer_dsl/definitions'
 require 'packer_dsl/post_processor'
 require 'packer_dsl/provisioner'
 
@@ -30,6 +31,10 @@ module PackerDSL
 
     property :description
     property :min_packer_version
+
+    def define(name, &blk)
+      Definitions.register(name, &blk)
+    end
 
     def variable(name, value)
       variables[name] = value

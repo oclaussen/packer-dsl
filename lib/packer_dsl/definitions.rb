@@ -15,21 +15,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-require 'packer_dsl/definitions'
-require 'packer_dsl/mixins/hashable'
+# rubocop:disable Style/ClassVars
 
 module PackerDSL
-  module Builders
-    class BaseBuilder
-      include Hashable
+  module Definitions
+    module_function
 
-      def include_options(name)
-        Definitions.include_in(name, self)
-      end
+    def register(name, &blk)
+      (@@registry ||= {})[name.to_sym] = blk
+    end
 
-      property :type
-      property :name
+    def include_in(name, item)
+      definition = (@@registry ||= {})[name.to_sym]
+      item.instance_eval(&definition)
     end
   end
 end
