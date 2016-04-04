@@ -16,19 +16,18 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/mixins/hashable'
+require 'packer_dsl/post_processors/base_processor'
 
 module PackerDSL
-  class PostProcessor
-    include Hashable
+  module PostProcessors
+    class AtlasProcessor < BaseProcessor
+      PostProcessors.register 'atlas', AtlasProcessor
 
-    def self.from_type(type, &blk)
-      new_processor = PostProcessor.new
-      new_processor.type type
-      new_processor.instance_eval(&blk) if block_given?
-      new_processor
+      property :token
+      property :artifact
+      property :artifact_type
+      property :atlas_url
+      property :metadata
     end
-
-    property :type
   end
 end

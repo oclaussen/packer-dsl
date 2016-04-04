@@ -18,8 +18,8 @@
 
 require 'packer_dsl/builders'
 require 'packer_dsl/definitions'
-require 'packer_dsl/post_processor'
-require 'packer_dsl/provisioner'
+require 'packer_dsl/post_processors'
+require 'packer_dsl/provisioners'
 
 require 'packer_dsl/mixins/from_file'
 require 'packer_dsl/mixins/hashable'
@@ -45,7 +45,7 @@ module PackerDSL
     end
 
     def post_processor(type, &blk)
-      post_processors << PostProcessor.from_type(type, &blk)
+      post_processors << PostProcessors.from_type(type, &blk)
     end
 
     def provisioner(type, &blk)

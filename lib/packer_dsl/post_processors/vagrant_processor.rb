@@ -16,19 +16,19 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/mixins/hashable'
+require 'packer_dsl/post_processors/base_processor'
 
 module PackerDSL
-  class Provisioner
-    include Hashable
+  module PostProcessors
+    class VagrantProcessor < BaseProcessor
+      PostProcessors.register 'vagrant', VagrantProcessor
 
-    def self.from_type(type, &blk)
-      new_provisioner = Provisioner.new
-      new_provisioner.type type
-      new_provisioner.instance_eval(&blk) if block_given?
-      new_provisioner
+      property :compression_level
+      property :include
+      property :keep_input_artifact
+      property :output
+      property :vagrantfile_template
+      property :override
     end
-
-    property :type
   end
 end
