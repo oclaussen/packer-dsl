@@ -16,22 +16,20 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/definitions'
-require 'packer_dsl/mixins/hashable'
+require 'packer_dsl/provisioners/puppet_provisioner'
 
 module PackerDSL
   module Provisioners
-    class BaseProvisioner
-      include Hashable
+    module Puppet
+      class PuppetServerProvisioner < PuppetProvisioner
+        Provisioners.register 'puppet-server', PuppetServerProvisioner
 
-      def include_options(name)
-        Definitions.include_in(name, self)
+        property :puppet_node
+        property :puppet_server
+        property :options
+        property :client_cert_path
+        property :client_private_key_path
       end
-
-      property :type
-      property :pause_before
-      property :only
-      property :except
     end
   end
 end

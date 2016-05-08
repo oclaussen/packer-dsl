@@ -16,22 +16,24 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/definitions'
-require 'packer_dsl/mixins/hashable'
+require 'packer_dsl/provisioners/base_provisioner'
 
 module PackerDSL
   module Provisioners
-    class BaseProvisioner
-      include Hashable
+    class SaltProvisioner < BaseProvisioner
+      Provisioners.register 'salt', SaltProvisioner
 
-      def include_options(name)
-        Definitions.include_in(name, self)
-      end
-
-      property :type
-      property :pause_before
-      property :only
-      property :except
+      property :bootstrap_args
+      property :disable_sudo
+      property :remote_pillar_roots
+      property :remote_state_tree
+      property :local_pillar_roots
+      property :local_state_tree
+      property :minion_config
+      property :skip_bootstrap
+      property :temp_config_dir
+      property :no_exit_on_failure
+      property :log_level
     end
   end
 end

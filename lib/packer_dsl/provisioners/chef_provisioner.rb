@@ -16,22 +16,22 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/definitions'
-require 'packer_dsl/mixins/hashable'
+require 'packer_dsl/provisioners/base_provisioner'
 
 module PackerDSL
   module Provisioners
-    class BaseProvisioner
-      include Hashable
-
-      def include_options(name)
-        Definitions.include_in(name, self)
-      end
-
-      property :type
-      property :pause_before
-      property :only
-      property :except
+    class ChefProvisioner < BaseProvisioner
+      property :run_list
+      property :chef_environment
+      property :guest_os_type
+      property :json
+      property :config_template
+      property :encrypted_data_bag_secret_path
+      property :execute_command
+      property :install_command
+      property :prevent_sudo
+      property :skip_install
+      property :staging_directory
     end
   end
 end

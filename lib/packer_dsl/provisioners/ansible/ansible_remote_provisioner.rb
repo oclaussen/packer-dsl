@@ -16,22 +16,24 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/definitions'
-require 'packer_dsl/mixins/hashable'
+require 'packer_dsl/provisioners/ansible_provisioner'
 
 module PackerDSL
   module Provisioners
-    class BaseProvisioner
-      include Hashable
+    module Ansible
+      class AnsibleRemoteProvisioner < AnsibleProvisioner
+        Provisioners.register 'ansible', AnsibleRemoteProvisioner
 
-      def include_options(name)
-        Definitions.include_in(name, self)
+        property :user
+        property :groups
+        property :empty_groups
+        property :host_alias
+        property :ssh_host_key_file
+        property :ssh_authorized_key_file
+        property :local_port
+        property :sftp_command
+        property :ansible_env_vars
       end
-
-      property :type
-      property :pause_before
-      property :only
-      property :except
     end
   end
 end

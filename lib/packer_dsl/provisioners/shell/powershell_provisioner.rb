@@ -16,22 +16,19 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/definitions'
-require 'packer_dsl/mixins/hashable'
+require 'packer_dsl/provisioners/shell_provisioner'
 
 module PackerDSL
   module Provisioners
-    class BaseProvisioner
-      include Hashable
+    module Shell
+      class PowershellProvisioner < ShellProvisioner
+        Provisioners.register 'powershell', PowershellProvisioner
 
-      def include_options(name)
-        Definitions.include_in(name, self)
+        property :inline_shebang
+        property :remote_folder
+        property :remote_file
+        property :skip_clean
       end
-
-      property :type
-      property :pause_before
-      property :only
-      property :except
     end
   end
 end

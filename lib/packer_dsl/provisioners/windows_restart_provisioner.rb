@@ -16,22 +16,16 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/definitions'
-require 'packer_dsl/mixins/hashable'
+require 'packer_dsl/provisioners/base_provisioner'
 
 module PackerDSL
   module Provisioners
-    class BaseProvisioner
-      include Hashable
+    class WindowsRestartProvisioner < BaseProvisioner
+      Provisioners.register 'windows-restart', WindowsRestartProvisioner
 
-      def include_options(name)
-        Definitions.include_in(name, self)
-      end
-
-      property :type
-      property :pause_before
-      property :only
-      property :except
+      property :restart_command
+      property :restart_check_command
+      property :restart_timeout
     end
   end
 end

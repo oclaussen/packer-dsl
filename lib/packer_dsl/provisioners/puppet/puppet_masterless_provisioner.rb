@@ -16,22 +16,22 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/definitions'
-require 'packer_dsl/mixins/hashable'
+require 'packer_dsl/provisioners/puppet_provisioner'
 
 module PackerDSL
   module Provisioners
-    class BaseProvisioner
-      include Hashable
+    module Puppet
+      class PuppetMasterlessProvisioner < PuppetProvisioner
+        Provisioners.register 'puppet-masterless', PuppetMasterlessProvisioner
 
-      def include_options(name)
-        Definitions.include_in(name, self)
+        property :manifest_file
+        property :execute_command
+        property :extra_arguments
+        property :hiera_config_path
+        property :manifest_dir
+        property :module_paths
+        property :working_directory
       end
-
-      property :type
-      property :pause_before
-      property :only
-      property :except
     end
   end
 end
