@@ -20,17 +20,33 @@ require 'packer_dsl/builders'
 require 'packer_dsl/definitions'
 require 'packer_dsl/post_processors'
 require 'packer_dsl/provisioners'
-
 require 'packer_dsl/mixins/from_file'
-require 'packer_dsl/mixins/hashable'
 
 module PackerDSL
   class Template
     include FromFile
-    include Hashable
 
-    property :description
-    property :min_packer_version
+    attr_reader :variables
+    attr_reader :builders
+    attr_reader :post_processors
+    attr_reader :provisioners
+
+    def initialize
+      @variables = {}
+      @builders = []
+      @post_processors = []
+      @provisioners = []
+    end
+
+    def description(text = nil)
+      return @description if text.nil?
+      @description = text
+    end
+
+    def min_packer_version(version = nil)
+      return @min_version if version.nil?
+      @min_version = version
+    end
 
     def define(name, &blk)
       Definitions.register(name, &blk)
@@ -49,41 +65,22 @@ module PackerDSL
     end
 
     def provisioner(type, &blk)
-      provisioners << Provisioner.from_type(type, &blk)
+      provisioners << Provisioners.from_type(type, &blk)
     end
 
-    private
-
-    def variables
-      if @variables.nil?
-        @variables = {}
-        self.class.hashable_variables << :variables
-      end
-      @variables
-    end
-
-    def builders
-      if @builders.nil?
-        @builders = []
-        self.class.hashable_variables << :builders
-      end
-      @builders
-    end
-
-    def post_processors
-      if @post_processors.nil?
-        @post_processors = []
-        self.class.hashable_variables << :post_processors
-      end
-      @post_processors
-    end
-
-    def provisioners
-      if @provisioners.nil?
-        @provisioners = []
-        self.class.hashable_variables << :provisioners
-      end
-      @provisioners
+    # TODO: make this nice
+    # rubocop:disable Metrics/LineLength
+    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/CyclomaticComplexity
+    def to_h
+      hash = {}
+      hash[:description] = description unless description.nil?
+      hash[:min_packer_version] = min_packer_version unless min_packer_version.nil?
+      hash[:variables] = variables unless variables.empty?
+      hash[:builders] = builders.map(&:to_h) unless builders.empty?
+      hash['post-processors'] = post_processors.map(&:to_h) unless post_processors.empty?
+      hash[:provisioners] = provisioners.map(&:to_h) unless provisioners.empty?
+      hash
     end
   end
 end
