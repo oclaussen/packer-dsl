@@ -53,8 +53,10 @@ module PackerDSL
 
       property :ssh_username
       property :ssh_password
+      property :ssh_port
       property :ssh_host_port_min
       property :ssh_host_port_max
+      property :ssh_wait_timeout
 
       property :boot_command
       property :boot_wait

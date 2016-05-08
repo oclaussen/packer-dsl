@@ -32,6 +32,7 @@ module PackerDSL
 
       property :ssh_username
       property :ssh_password
+      property :ssh_port
 
       property :boot_command
       property :boot_wait

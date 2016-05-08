@@ -26,6 +26,7 @@ module PackerDSL
 
         property :disk_size
         property :guest_os_type
+        property :hard_drive_interface
 
         property :iso_url
         property :iso_urls
