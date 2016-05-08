@@ -29,6 +29,8 @@ module PackerDSL
       end
 
       property :type
+      property :only
+      property :except
     end
   end
 end
