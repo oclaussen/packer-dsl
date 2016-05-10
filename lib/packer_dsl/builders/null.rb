@@ -16,17 +16,16 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/builders/amazon_builder'
+require 'packer_dsl/builders/base'
 
 module PackerDSL
   module Builders
-    module Amazon
-      class AmazonEbsBuilder < AmazonBuilder
-        register_as AmazonEbsBuilder, builder: 'amazon-ebs'
+    class Null < Builders::Base
+      register_as Null, builder: 'null'
 
-        property :token
-        property :run_volume_tags
-      end
+      property :ssh_host
+      property :ssh_username
+      property :ssh_password
     end
   end
 end

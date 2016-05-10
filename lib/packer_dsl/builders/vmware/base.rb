@@ -16,25 +16,36 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/builders/amazon_builder'
+require 'packer_dsl/builders/base'
 
 module PackerDSL
   module Builders
-    module Amazon
-      class AmazonInstanceBuilder < AmazonBuilder
-        register_as AmazonInstanceBuilder, builder: 'amazon-instance'
+    module Vmware
+      class Base < Builders::Base
+        property :vm_name
+        property :headless
+        property :floppy_files
+        property :fusion_app_path
+        property :skip_compaction
+        property :output_directory
+        property :vmx_data
+        property :vmx_data_post
 
-        property :account_id
-        property :s3_bucket
+        property :ssh_username
+        property :ssh_password
+        property :ssh_port
 
-        property :x509_cert_path
-        property :x509_key_path
-        property :x509_upload_path
+        property :boot_command
+        property :boot_wait
+        property :shutdown_command
+        property :shutdown_timeout
 
-        property :bundle_destination
-        property :bundle_prefix
-        property :bundle_upload_command
-        property :bundle_vol_command
+        property :http_directory
+        property :http_port_min
+        property :http_port_max
+
+        property :vnc_port_min
+        property :vnc_port_max
       end
     end
   end

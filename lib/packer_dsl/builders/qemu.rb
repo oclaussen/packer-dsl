@@ -16,27 +16,46 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/builders/base_builder'
+require 'packer_dsl/builders/base'
 
 module PackerDSL
   module Builders
-    class VirtualboxBuilder < BaseBuilder
+    class Qemu < Builders::Base
+      register_as Qemu, builder: 'qemu'
+
       property :vm_name
       property :format
+      property :accelerator
       property :headless
-      property :export_opts
       property :floppy_files
-      property :vboxmanage
-      property :vboxmanage_post
-      property :virtualbox_version_file
+      property :machine_type
+      property :net_device
       property :output_directory
+      property :skip_compaction
+
+      property :qemu_binary
+      property :qemuargs
+
+      property :disk_image
+      property :disk_interface
+      property :disk_size
+      property :disk_cache
+      property :disk_compression
+      property :disk_discard
+
+      property :iso_url
+      property :iso_urls
+      property :iso_checksum
+      property :iso_checksum_url
+      property :iso_checksum_type
+      property :iso_skip_cache
+      property :iso_target_path
 
       property :ssh_username
       property :ssh_password
       property :ssh_port
       property :ssh_host_port_min
       property :ssh_host_port_max
-      property :ssh_skip_nat_mapping
       property :ssh_wait_timeout
 
       property :boot_command
@@ -48,13 +67,8 @@ module PackerDSL
       property :http_port_min
       property :http_port_max
 
-      property :vrdp_port_min
-      property :vrdp_port_max
-
-      property :guest_additions_mode
-      property :guest_additions_path
-      property :guest_additions_url
-      property :guest_additions_sha256
+      property :vnc_port_min
+      property :vnc_port_max
     end
   end
 end

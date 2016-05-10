@@ -16,35 +16,17 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/builders/base_builder'
+require 'packer_dsl/builders/amazon/base'
 
 module PackerDSL
   module Builders
-    class VmwareBuilder < BaseBuilder
-      property :vm_name
-      property :headless
-      property :floppy_files
-      property :fusion_app_path
-      property :skip_compaction
-      property :output_directory
-      property :vmx_data
-      property :vmx_data_post
+    module Amazon
+      class Ebs < Amazon::Base
+        register_as Amazon::Ebs, builder: 'amazon-ebs'
 
-      property :ssh_username
-      property :ssh_password
-      property :ssh_port
-
-      property :boot_command
-      property :boot_wait
-      property :shutdown_command
-      property :shutdown_timeout
-
-      property :http_directory
-      property :http_port_min
-      property :http_port_max
-
-      property :vnc_port_min
-      property :vnc_port_max
+        property :token
+        property :run_volume_tags
+      end
     end
   end
 end

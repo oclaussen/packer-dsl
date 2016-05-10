@@ -18,18 +18,15 @@
 
 module PackerDSL
   module Builders
-    require 'packer_dsl/builders/amazon_builder'
-    require 'packer_dsl/builders/amazon/amazon_chroot_builder'
-    require 'packer_dsl/builders/amazon/amazon_ebs_builder'
-    require 'packer_dsl/builders/amazon/amazon_instance_builder'
-    require 'packer_dsl/builders/docker_builder'
-    require 'packer_dsl/builders/null_builder'
-    require 'packer_dsl/builders/qemu_builder'
-    require 'packer_dsl/builders/virtualbox_builder'
-    require 'packer_dsl/builders/virtualbox/virtualbox_iso_builder'
-    require 'packer_dsl/builders/virtualbox/virtualbox_ovf_builder'
-    require 'packer_dsl/builders/vmware_builder'
-    require 'packer_dsl/builders/vmware/vmware_iso_builder'
-    require 'packer_dsl/builders/vmware/vmware_vmx_builder'
+    require 'packer_dsl/builders/amazon/chroot'
+    require 'packer_dsl/builders/amazon/ebs'
+    require 'packer_dsl/builders/amazon/instance'
+    require 'packer_dsl/builders/virtualbox/iso'
+    require 'packer_dsl/builders/virtualbox/ovf'
+    require 'packer_dsl/builders/vmware/iso'
+    require 'packer_dsl/builders/vmware/vmx'
+    require 'packer_dsl/builders/docker'
+    require 'packer_dsl/builders/null'
+    require 'packer_dsl/builders/qemu'
   end
 end

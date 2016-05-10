@@ -16,27 +16,26 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/builders/base_builder'
+require 'packer_dsl/builders/amazon/base'
 
 module PackerDSL
   module Builders
-    class DockerBuilder < BaseBuilder
-      register_as DockerBuilder, builder: 'docker'
+    module Amazon
+      class Instance < Amazon::Base
+        register_as Amazon::Instance, builder: 'amazon-instance'
 
-      property :commit
-      property :discard
-      property :export_path
+        property :account_id
+        property :s3_bucket
 
-      property :image
-      property :pull
-      property :volumes
-      property :run_command
+        property :x509_cert_path
+        property :x509_key_path
+        property :x509_upload_path
 
-      property :login
-      property :login_username
-      property :login_password
-      property :login_email
-      property :login_server
+        property :bundle_destination
+        property :bundle_prefix
+        property :bundle_upload_command
+        property :bundle_vol_command
+      end
     end
   end
 end

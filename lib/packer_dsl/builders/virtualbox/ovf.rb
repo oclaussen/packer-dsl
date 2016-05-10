@@ -16,15 +16,17 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/builders/vmware_builder'
+require 'packer_dsl/builders/virtualbox/base'
 
 module PackerDSL
   module Builders
-    module Vmware
-      class VmwareVmxBuilder < VmwareBuilder
-        register_as VmwareVmxBuilder, builder: 'vmware-vmx'
+    module VirtualBox
+      class Ovf < VirtualBox::Base
+        register_as VirtualBox::Ovf, builder: 'virtualbox-ovf'
 
         property :source_path
+        property :import_flags
+        property :import_opts
       end
     end
   end

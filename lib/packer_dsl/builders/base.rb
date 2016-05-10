@@ -20,7 +20,7 @@ require 'packer_dsl/component'
 
 module PackerDSL
   module Builders
-    class BaseBuilder < Component
+    class Base < Component
       property :name
     end
   end

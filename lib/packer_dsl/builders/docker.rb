@@ -16,18 +16,27 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/builders/virtualbox_builder'
+require 'packer_dsl/builders/base'
 
 module PackerDSL
   module Builders
-    module VirtualBox
-      class VirtualboxOvfBuilder < VirtualboxBuilder
-        register_as VirtualboxOvfBuilder, builder: 'virtualbox-ovf'
+    class Docker < Builders::Base
+      register_as Docker, builder: 'docker'
 
-        property :source_path
-        property :import_flags
-        property :import_opts
-      end
+      property :commit
+      property :discard
+      property :export_path
+
+      property :image
+      property :pull
+      property :volumes
+      property :run_command
+
+      property :login
+      property :login_username
+      property :login_password
+      property :login_email
+      property :login_server
     end
   end
 end

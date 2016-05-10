@@ -16,16 +16,16 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/builders/base_builder'
+require 'packer_dsl/builders/vmware/base'
 
 module PackerDSL
   module Builders
-    class NullBuilder < BaseBuilder
-      register_as NullBuilder, builder: 'null'
+    module Vmware
+      class Vmx < Vmware::Base
+        register_as Vmware::Vmx, builder: 'vmware-vmx'
 
-      property :ssh_host
-      property :ssh_username
-      property :ssh_password
+        property :source_path
+      end
     end
   end
 end

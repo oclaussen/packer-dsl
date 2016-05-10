@@ -16,13 +16,13 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/builders/amazon_builder'
+require 'packer_dsl/builders/amazon/base'
 
 module PackerDSL
   module Builders
     module Amazon
-      class AmazonChrootBuilder < AmazonBuilder
-        register_as AmazonChrootBuilder, builder: 'amazon-chroot'
+      class Chroot < Amazon::Base
+        register_as Amazon::Chroot, builder: 'amazon-chroot'
 
         property :chroot_mounts
         property :command_wrapper
