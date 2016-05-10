@@ -22,17 +22,15 @@ require 'packer_dsl/template'
 module PackerDSL
   module_function
 
-  def convert(*files, output_dir: nil)
-    files.each do |file|
-      template = PackerDSL::Template.new
-      template.from_file(file)
-      template = JSON.pretty_generate(template.to_h)
+  def convert(file, output_dir: nil)
+    template = PackerDSL::Template.new
+    template.from_file(file)
+    template = JSON.pretty_generate(template.to_h)
 
-      output_dir ||= File.dirname(file)
-      Dir.mkdir(output_dir) unless File.exist?(output_dir)
-      target = File.basename(file, '.rb')
-      target = File.join(output_dir, "#{target}.json")
-      File.open(target, 'w') { |f| f.write(template) }
-    end
+    output_dir ||= File.dirname(file)
+    Dir.mkdir(output_dir) unless File.exist?(output_dir)
+    target = File.basename(file, '.rb')
+    target = File.join(output_dir, "#{target}.json")
+    File.open(target, 'w') { |f| f.write(template) }
   end
 end

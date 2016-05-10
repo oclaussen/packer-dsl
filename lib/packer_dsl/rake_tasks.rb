@@ -21,19 +21,37 @@ require 'rake/tasklib'
 require 'packer_dsl'
 
 module PackerDSL
-  class RakeTask < ::Rake::TaskLib
-    attr_accessor :name, :files, :output_directory
+  class RakeTasks < Rake::TaskLib
+    attr_accessor :files
+    attr_accessor :output_directory
 
-    def initialize(name = :packer_convert)
-      @name = name
+    def initialize
       @files = []
       @output_directory = nil
 
       yield self if block_given?
+      namespace :packer do
+        convert
+        validate
+      end
+    end
 
-      desc 'Convert Packer DSL files' unless ::Rake.application.last_description
-      task(name) do
-        PackerDSL.convert(*@files, output_dir: @output_directory)
+    def convert
+      desc 'Convert Packer DSL files'
+      task :convert do
+        @files.each do |file|
+          puts "Converting file #{file}"
+          PackerDSL.convert(file, output_dir: @output_directory)
+        end
+      end
+    end
+
+    def validate
+      desc 'Validate Packer templates'
+      task validate: [:convert] do
+        Dir.glob(File.join(output_directory, '*.json')).each do |file|
+          sh "packer validate #{file}"
+        end
       end
     end
   end
