@@ -26,7 +26,9 @@ module PackerDSL
     end
 
     def include_in(name, item)
-      definition = (@@registry ||= {})[name.to_sym]
+      @@registry ||= {}
+      definition = @@registry[name.to_sym]
+      raise "Undefined options: #{name}" if definition.nil?
       item.instance_eval(&definition)
     end
   end

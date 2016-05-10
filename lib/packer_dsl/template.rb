@@ -52,6 +52,13 @@ module PackerDSL
       Definitions.register(name, &blk)
     end
 
+    def include_template(relative_path)
+      caller_file = caller[0].split(':')[0]
+      path = File.expand_path(relative_path, File.dirname(caller_file))
+      path += '.rb' unless File.exist?(path) || path.end_with?('rb')
+      from_file path
+    end
+
     def variable(name, value)
       variables[name] = value
     end
