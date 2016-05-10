@@ -16,19 +16,23 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/provisioners/puppet_provisioner'
+require 'packer_dsl/provisioners/ansible/base'
 
 module PackerDSL
   module Provisioners
-    module Puppet
-      class PuppetServerProvisioner < PuppetProvisioner
-        register_as PuppetServerProvisioner, provisioner: 'puppet-server'
+    module Ansible
+      class Local < Ansible::Base
+        register_as Ansible::Local, provisioner: 'ansible-local'
 
-        property :puppet_node
-        property :puppet_server
-        property :options
-        property :client_cert_path
-        property :client_private_key_path
+        property :command
+        property :inventory_groups
+        property :inventory_file
+        property :playbook_dir
+        property :playbook_paths
+        property :group_vars
+        property :host_vars
+        property :role_paths
+        property :staging_directory
       end
     end
   end

@@ -16,16 +16,17 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/provisioners/base_provisioner'
+require 'packer_dsl/provisioners/base'
 
 module PackerDSL
   module Provisioners
-    class FileProvisioner < BaseProvisioner
-      register_as FileProvisioner, provisioner: 'file'
-
-      property :source
-      property :destination
-      property :direction
+    module Puppet
+      class Base < Provisioners::Base
+        property :facter
+        property :ignore_exit_codes
+        property :prevent_sudo
+        property :staging_directory
+      end
     end
   end
 end

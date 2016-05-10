@@ -16,24 +16,24 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/provisioners/ansible_provisioner'
+require 'packer_dsl/provisioners/base'
 
 module PackerDSL
   module Provisioners
-    module Ansible
-      class AnsibleLocalProvisioner < AnsibleProvisioner
-        register_as AnsibleLocalProvisioner, provisioner: 'ansible-local'
+    class Salt < Provisioners::Base
+      register_as Provisioners::Salt, provisioner: 'salt'
 
-        property :command
-        property :inventory_groups
-        property :inventory_file
-        property :playbook_dir
-        property :playbook_paths
-        property :group_vars
-        property :host_vars
-        property :role_paths
-        property :staging_directory
-      end
+      property :bootstrap_args
+      property :disable_sudo
+      property :remote_pillar_roots
+      property :remote_state_tree
+      property :local_pillar_roots
+      property :local_state_tree
+      property :minion_config
+      property :skip_bootstrap
+      property :temp_config_dir
+      property :no_exit_on_failure
+      property :log_level
     end
   end
 end

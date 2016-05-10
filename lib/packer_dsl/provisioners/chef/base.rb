@@ -16,13 +16,24 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/provisioners/base_provisioner'
+require 'packer_dsl/provisioners/base'
 
 module PackerDSL
   module Provisioners
-    class AnsibleProvisioner < BaseProvisioner
-      property :playbook_file
-      property :extra_arguments
+    module Chef
+      class Base < Provisioners::Base
+        property :run_list
+        property :chef_environment
+        property :guest_os_type
+        property :json
+        property :config_template
+        property :encrypted_data_bag_secret_path
+        property :execute_command
+        property :install_command
+        property :prevent_sudo
+        property :skip_install
+        property :staging_directory
+      end
     end
   end
 end

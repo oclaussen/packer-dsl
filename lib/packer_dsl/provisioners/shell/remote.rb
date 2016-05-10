@@ -16,22 +16,19 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/provisioners/base_provisioner'
+require 'packer_dsl/provisioners/shell/base'
 
 module PackerDSL
   module Provisioners
-    class ChefProvisioner < BaseProvisioner
-      property :run_list
-      property :chef_environment
-      property :guest_os_type
-      property :json
-      property :config_template
-      property :encrypted_data_bag_secret_path
-      property :execute_command
-      property :install_command
-      property :prevent_sudo
-      property :skip_install
-      property :staging_directory
+    module Shell
+      class Remote < Shell::Base
+        register_as Shell::Remote, provisioner: 'shell'
+
+        property :inline_shebang
+        property :remote_folder
+        property :remote_file
+        property :skip_clean
+      end
     end
   end
 end

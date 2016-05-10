@@ -18,18 +18,18 @@
 
 module PackerDSL
   module Provisioners
-    require 'packer_dsl/provisioners/ansible/ansible_local_provisioner'
-    require 'packer_dsl/provisioners/ansible/ansible_remote_provisioner'
-    require 'packer_dsl/provisioners/chef/chef_client_provisioner'
-    require 'packer_dsl/provisioners/chef/chef_solo_provisioner'
-    require 'packer_dsl/provisioners/puppet/puppet_masterless_provisioner'
-    require 'packer_dsl/provisioners/puppet/puppet_server_provisioner'
-    require 'packer_dsl/provisioners/shell/powershell_provisioner'
-    require 'packer_dsl/provisioners/shell/local_shell_provisioner'
-    require 'packer_dsl/provisioners/shell/remote_shell_provisioner'
-    require 'packer_dsl/provisioners/shell/windows_shell_provisioner'
-    require 'packer_dsl/provisioners/file_provisioner'
-    require 'packer_dsl/provisioners/salt_provisioner'
-    require 'packer_dsl/provisioners/windows_restart_provisioner'
+    require 'packer_dsl/provisioners/ansible/local'
+    require 'packer_dsl/provisioners/ansible/remote'
+    require 'packer_dsl/provisioners/chef/client'
+    require 'packer_dsl/provisioners/chef/solo'
+    require 'packer_dsl/provisioners/puppet/masterless'
+    require 'packer_dsl/provisioners/puppet/server'
+    require 'packer_dsl/provisioners/shell/powershell'
+    require 'packer_dsl/provisioners/shell/local'
+    require 'packer_dsl/provisioners/shell/remote'
+    require 'packer_dsl/provisioners/shell/windows'
+    require 'packer_dsl/provisioners/file'
+    require 'packer_dsl/provisioners/salt'
+    require 'packer_dsl/provisioners/windows_restart'
   end
 end

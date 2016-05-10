@@ -16,15 +16,16 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/provisioners/base_provisioner'
+require 'packer_dsl/provisioners/base'
 
 module PackerDSL
   module Provisioners
-    class PuppetProvisioner < BaseProvisioner
-      property :facter
-      property :ignore_exit_codes
-      property :prevent_sudo
-      property :staging_directory
+    class WindowsRestart < Provisioners::Base
+      register_as Provisioners::WindowsRestart, provisioner: 'windows-restart'
+
+      property :restart_command
+      property :restart_check_command
+      property :restart_timeout
     end
   end
 end

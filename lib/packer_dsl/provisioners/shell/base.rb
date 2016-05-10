@@ -16,13 +16,20 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/provisioners/shell_provisioner'
+require 'packer_dsl/provisioners/base'
 
 module PackerDSL
   module Provisioners
     module Shell
-      class WindowsShellProvisioner < ShellProvisioner
-        register_as WindowsShellProvisioner, provisioner: 'windows-shell'
+      class Base < Provisioners::Base
+        property :inline
+        property :script
+        property :scripts
+        property :binary
+        property :environment_vars
+        property :execute_command
+        property :remote_path
+        property :start_retry_timeout
       end
     end
   end

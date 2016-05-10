@@ -16,19 +16,19 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/provisioners/chef_provisioner'
+require 'packer_dsl/provisioners/puppet/base'
 
 module PackerDSL
   module Provisioners
-    module Chef
-      class ChefSoloProvisioner < ChefProvisioner
-        register_as ChefSoloProvisioner, provisioner: 'chef-solo'
+    module Puppet
+      class Server < Puppet::Base
+        register_as Puppet::Server, provisioner: 'puppet-server'
 
-        property :cookbook_paths
-        property :remote_cookbook_paths
-        property :environment_paths
-        property :roles_paths
-        property :data_bag_paths
+        property :puppet_node
+        property :puppet_server
+        property :options
+        property :client_cert_path
+        property :client_private_key_path
       end
     end
   end

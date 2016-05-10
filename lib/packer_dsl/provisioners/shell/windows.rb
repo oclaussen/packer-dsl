@@ -16,18 +16,13 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/provisioners/shell_provisioner'
+require 'packer_dsl/provisioners/shell/base'
 
 module PackerDSL
   module Provisioners
     module Shell
-      class PowershellProvisioner < ShellProvisioner
-        register_as PowershellProvisioner, provisioner: 'powershell'
-
-        property :inline_shebang
-        property :remote_folder
-        property :remote_file
-        property :skip_clean
+      class Windows < Shell::Base
+        register_as Shell::Windows, provisioner: 'windows-shell'
       end
     end
   end

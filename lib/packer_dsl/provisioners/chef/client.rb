@@ -16,14 +16,23 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/component'
+require 'packer_dsl/provisioners/chef/base'
 
 module PackerDSL
   module Provisioners
-    class BaseProvisioner < Component
-      property :pause_before
-      property :only
-      property :except
+    module Chef
+      class Client < Chef::Base
+        register_as Chef::Client, provisioner: 'chef-client'
+
+        property :node_name
+        property :server_url
+        property :client_key
+        property :validation_client_name
+        property :validation_key_path
+        property :ssl_verify_mode
+        property :skip_clean_client
+        property :skip_clean_node
+      end
     end
   end
 end

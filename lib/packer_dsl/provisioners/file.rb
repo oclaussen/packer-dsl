@@ -16,16 +16,16 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/provisioners/base_provisioner'
+require 'packer_dsl/provisioners/base'
 
 module PackerDSL
   module Provisioners
-    class WindowsRestartProvisioner < BaseProvisioner
-      register_as WindowsRestartProvisioner, provisioner: 'windows-restart'
+    class File < Provisioners::Base
+      register_as Provisioners::File, provisioner: 'file'
 
-      property :restart_command
-      property :restart_check_command
-      property :restart_timeout
+      property :source
+      property :destination
+      property :direction
     end
   end
 end

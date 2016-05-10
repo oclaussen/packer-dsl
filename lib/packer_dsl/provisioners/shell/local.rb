@@ -16,18 +16,16 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/provisioners/shell_provisioner'
+require 'packer_dsl/provisioners/base'
 
 module PackerDSL
   module Provisioners
     module Shell
-      class RemoteShellProvisioner < ShellProvisioner
-        register_as RemoteShellProvisioner, provisioner: 'shell'
+      class Local < Provisioners::Base
+        register_as Shell::Local, provisioner: 'shell-local'
 
-        property :inline_shebang
-        property :remote_folder
-        property :remote_file
-        property :skip_clean
+        property :command
+        property :execute_command
       end
     end
   end

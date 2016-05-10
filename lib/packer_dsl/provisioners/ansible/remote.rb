@@ -16,21 +16,23 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/provisioners/puppet_provisioner'
+require 'packer_dsl/provisioners/ansible/base'
 
 module PackerDSL
   module Provisioners
-    module Puppet
-      class PuppetMasterlessProvisioner < PuppetProvisioner
-        register_as PuppetMasterlessProvisioner, provisioner: 'puppet-masterless'
+    module Ansible
+      class Remote < Ansible::Base
+        register_as Ansible::Remote, provisioner: 'ansible'
 
-        property :manifest_file
-        property :execute_command
-        property :extra_arguments
-        property :hiera_config_path
-        property :manifest_dir
-        property :module_paths
-        property :working_directory
+        property :user
+        property :groups
+        property :empty_groups
+        property :host_alias
+        property :ssh_host_key_file
+        property :ssh_authorized_key_file
+        property :local_port
+        property :sftp_command
+        property :ansible_env_vars
       end
     end
   end

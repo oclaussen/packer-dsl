@@ -16,16 +16,19 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/provisioners/base_provisioner'
+require 'packer_dsl/provisioners/chef/base'
 
 module PackerDSL
   module Provisioners
-    module Shell
-      class LocalShellProvisioner < BaseProvisioner
-        register_as LocalShellProvisioner, provisioner: 'shell-local'
+    module Chef
+      class Solo < Chef::Base
+        register_as Chef::Solo, provisioner: 'chef-solo'
 
-        property :command
-        property :execute_command
+        property :cookbook_paths
+        property :remote_cookbook_paths
+        property :environment_paths
+        property :roles_paths
+        property :data_bag_paths
       end
     end
   end

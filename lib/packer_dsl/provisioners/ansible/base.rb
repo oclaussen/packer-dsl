@@ -16,19 +16,15 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/provisioners/base_provisioner'
+require 'packer_dsl/provisioners/base'
 
 module PackerDSL
   module Provisioners
-    class ShellProvisioner < BaseProvisioner
-      property :inline
-      property :script
-      property :scripts
-      property :binary
-      property :environment_vars
-      property :execute_command
-      property :remote_path
-      property :start_retry_timeout
+    module Ansible
+      class Base < Provisioners::Base
+        property :playbook_file
+        property :extra_arguments
+      end
     end
   end
 end

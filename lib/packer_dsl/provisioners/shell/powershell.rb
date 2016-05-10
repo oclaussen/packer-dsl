@@ -16,23 +16,18 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/provisioners/ansible_provisioner'
+require 'packer_dsl/provisioners/shell/base'
 
 module PackerDSL
   module Provisioners
-    module Ansible
-      class AnsibleRemoteProvisioner < AnsibleProvisioner
-        register_as AnsibleRemoteProvisioner, provisioner: 'ansible'
+    module Shell
+      class Powershell < Shell::Base
+        register_as Shell::Powershell, provisioner: 'powershell'
 
-        property :user
-        property :groups
-        property :empty_groups
-        property :host_alias
-        property :ssh_host_key_file
-        property :ssh_authorized_key_file
-        property :local_port
-        property :sftp_command
-        property :ansible_env_vars
+        property :inline_shebang
+        property :remote_folder
+        property :remote_file
+        property :skip_clean
       end
     end
   end

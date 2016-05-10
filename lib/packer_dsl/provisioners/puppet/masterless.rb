@@ -16,24 +16,22 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/provisioners/base_provisioner'
+require 'packer_dsl/provisioners/puppet/base'
 
 module PackerDSL
   module Provisioners
-    class SaltProvisioner < BaseProvisioner
-      register_as SaltProvisioner, provisioner: 'salt'
+    module Puppet
+      class Masterless < Puppet::Base
+        register_as Puppet::Masterless, provisioner: 'puppet-masterless'
 
-      property :bootstrap_args
-      property :disable_sudo
-      property :remote_pillar_roots
-      property :remote_state_tree
-      property :local_pillar_roots
-      property :local_state_tree
-      property :minion_config
-      property :skip_bootstrap
-      property :temp_config_dir
-      property :no_exit_on_failure
-      property :log_level
+        property :manifest_file
+        property :execute_command
+        property :extra_arguments
+        property :hiera_config_path
+        property :manifest_dir
+        property :module_paths
+        property :working_directory
+      end
     end
   end
 end
