@@ -22,7 +22,7 @@ module PackerDSL
   module Provisioners
     module Ansible
       class AnsibleLocalProvisioner < AnsibleProvisioner
-        Provisioners.register 'ansible-local', AnsibleLocalProvisioner
+        register_as AnsibleLocalProvisioner, provisioner: 'ansible-local'
 
         property :command
         property :inventory_groups

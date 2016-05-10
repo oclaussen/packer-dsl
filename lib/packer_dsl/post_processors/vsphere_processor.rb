@@ -21,7 +21,7 @@ require 'packer_dsl/post_processors/base_processor'
 module PackerDSL
   module PostProcessors
     class VsphereProcessor < BaseProcessor
-      PostProcessors.register 'vsphere', VsphereProcessor
+      register_as VsphereProcessor, post_processor: 'vsphere'
 
       property :cluster
       property :datacenter

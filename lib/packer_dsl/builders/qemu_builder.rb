@@ -21,7 +21,7 @@ require 'packer_dsl/builders/base_builder'
 module PackerDSL
   module Builders
     class QemuBuilder < BaseBuilder
-      Builders.register 'qemu', QemuBuilder
+      register_as QemuBuilder, builder: 'qemu'
 
       property :vm_name
       property :format

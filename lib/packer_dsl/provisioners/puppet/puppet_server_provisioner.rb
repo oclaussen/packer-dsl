@@ -22,7 +22,7 @@ module PackerDSL
   module Provisioners
     module Puppet
       class PuppetServerProvisioner < PuppetProvisioner
-        Provisioners.register 'puppet-server', PuppetServerProvisioner
+        register_as PuppetServerProvisioner, provisioner: 'puppet-server'
 
         property :puppet_node
         property :puppet_server

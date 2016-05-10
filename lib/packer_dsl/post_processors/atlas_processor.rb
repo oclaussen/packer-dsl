@@ -21,7 +21,7 @@ require 'packer_dsl/post_processors/base_processor'
 module PackerDSL
   module PostProcessors
     class AtlasProcessor < BaseProcessor
-      PostProcessors.register 'atlas', AtlasProcessor
+      register_as AtlasProcessor, post_processor: 'atlas'
 
       property :token
       property :artifact

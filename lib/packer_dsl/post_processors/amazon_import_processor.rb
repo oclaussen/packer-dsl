@@ -21,7 +21,7 @@ require 'packer_dsl/post_processors/base_processor'
 module PackerDSL
   module PostProcessors
     class AmazonImportProcessor < BaseProcessor
-      PostProcessors.register 'amazon-import', AmazonImportProcessor
+      register_as AmazonImportProcessor, post_processor: 'amazon-import'
 
       property :access_key
       property :region

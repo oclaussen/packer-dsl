@@ -22,7 +22,7 @@ module PackerDSL
   module Builders
     module VirtualBox
       class VirtualboxOvfBuilder < VirtualboxBuilder
-        Builders.register 'virtualbox-ovf', VirtualboxOvfBuilder
+        register_as VirtualboxOvfBuilder, builder: 'virtualbox-ovf'
 
         property :source_path
         property :import_flags

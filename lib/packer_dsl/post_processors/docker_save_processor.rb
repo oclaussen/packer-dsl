@@ -21,7 +21,7 @@ require 'packer_dsl/post_processors/base_processor'
 module PackerDSL
   module PostProcessors
     class DockerSaveProcessor < BaseProcessor
-      PostProcessors.register 'docker-save', DockerSaveProcessor
+      register_as DockerSaveProcessor, post_processor: 'docker-save'
 
       property :path
     end

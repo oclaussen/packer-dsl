@@ -22,7 +22,7 @@ module PackerDSL
   module Provisioners
     module Ansible
       class AnsibleRemoteProvisioner < AnsibleProvisioner
-        Provisioners.register 'ansible', AnsibleRemoteProvisioner
+        register_as AnsibleRemoteProvisioner, provisioner: 'ansible'
 
         property :user
         property :groups

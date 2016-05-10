@@ -15,19 +15,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# rubocop:disable Style/ClassVars
+
+require 'singleton'
 
 module PackerDSL
-  module Definitions
-    module_function
+  class Definitions
+    include Singleton
 
     def register(name, &blk)
-      (@@registry ||= {})[name.to_sym] = blk
+      (@registry ||= {})[name.to_sym] = blk
     end
 
     def include_in(name, item)
-      @@registry ||= {}
-      definition = @@registry[name.to_sym]
+      @registry ||= {}
+      definition = @registry[name.to_sym]
       raise "Undefined options: #{name}" if definition.nil?
       item.instance_eval(&definition)
     end

@@ -22,7 +22,7 @@ module PackerDSL
   module Provisioners
     module Shell
       class RemoteShellProvisioner < ShellProvisioner
-        Provisioners.register 'shell', RemoteShellProvisioner
+        register_as RemoteShellProvisioner, provisioner: 'shell'
 
         property :inline_shebang
         property :remote_folder

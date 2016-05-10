@@ -21,7 +21,7 @@ require 'packer_dsl/provisioners/base_provisioner'
 module PackerDSL
   module Provisioners
     class SaltProvisioner < BaseProvisioner
-      Provisioners.register 'salt', SaltProvisioner
+      register_as SaltProvisioner, provisioner: 'salt'
 
       property :bootstrap_args
       property :disable_sudo

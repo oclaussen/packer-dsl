@@ -22,7 +22,7 @@ module PackerDSL
   module Provisioners
     module Puppet
       class PuppetMasterlessProvisioner < PuppetProvisioner
-        Provisioners.register 'puppet-masterless', PuppetMasterlessProvisioner
+        register_as PuppetMasterlessProvisioner, provisioner: 'puppet-masterless'
 
         property :manifest_file
         property :execute_command

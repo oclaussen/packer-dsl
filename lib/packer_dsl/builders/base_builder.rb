@@ -16,19 +16,11 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/definitions'
-require 'packer_dsl/mixins/hashable'
+require 'packer_dsl/component'
 
 module PackerDSL
   module Builders
-    class BaseBuilder
-      include Hashable
-
-      def include_options(name)
-        Definitions.include_in(name, self)
-      end
-
-      property :type
+    class BaseBuilder < Component
       property :name
     end
   end

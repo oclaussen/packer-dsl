@@ -21,7 +21,7 @@ require 'packer_dsl/post_processors/base_processor'
 module PackerDSL
   module PostProcessors
     class ShellLocalProcessor < BaseProcessor
-      PostProcessors.register 'shell-local', ShellLocalProcessor
+      register_as ShellLocalProcessor, post_processor: 'shell-local'
 
       property :inline
       property :script

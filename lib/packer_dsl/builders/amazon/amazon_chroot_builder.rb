@@ -21,8 +21,8 @@ require 'packer_dsl/builders/amazon_builder'
 module PackerDSL
   module Builders
     module Amazon
-      class AmazonInstanceBuilder < AmazonBuilder
-        Builders.register 'amazon-instance', AmazonInstanceBuilder
+      class AmazonChrootBuilder < AmazonBuilder
+        register_as AmazonChrootBuilder, builder: 'amazon-chroot'
 
         property :chroot_mounts
         property :command_wrapper

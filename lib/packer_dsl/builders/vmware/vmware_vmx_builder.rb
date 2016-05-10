@@ -22,7 +22,7 @@ module PackerDSL
   module Builders
     module Vmware
       class VmwareVmxBuilder < VmwareBuilder
-        Builders.register 'vmware-vmx', VmwareVmxBuilder
+        register_as VmwareVmxBuilder, builder: 'vmware-vmx'
 
         property :source_path
       end

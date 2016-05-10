@@ -15,34 +15,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# rubocop:disable Style/ClassVars
 
 module PackerDSL
   module PostProcessors
-    module_function
-
-    def register(type, cls)
-      (@@registry ||= {})[type.to_sym] = cls
-    end
-
-    def from_type(type, &blk)
-      new_builder = (@@registry ||= {})[type.to_sym].new
-      new_builder.type type
-      new_builder.instance_eval(&blk) if block_given?
-      new_builder
-    end
+    require 'packer_dsl/post_processors/amazon_import_processor'
+    require 'packer_dsl/post_processors/artifice_processor'
+    require 'packer_dsl/post_processors/atlas_processor'
+    require 'packer_dsl/post_processors/compress_processor'
+    require 'packer_dsl/post_processors/docker_import_processor'
+    require 'packer_dsl/post_processors/docker_push_processor'
+    require 'packer_dsl/post_processors/docker_save_processor'
+    require 'packer_dsl/post_processors/docker_tag_processor'
+    require 'packer_dsl/post_processors/shell_local_processor'
+    require 'packer_dsl/post_processors/vagrant_cloud_processor'
+    require 'packer_dsl/post_processors/vagrant_processor'
+    require 'packer_dsl/post_processors/vsphere_processor'
   end
 end
-
-require 'packer_dsl/post_processors/amazon_import_processor'
-require 'packer_dsl/post_processors/artifice_processor'
-require 'packer_dsl/post_processors/atlas_processor'
-require 'packer_dsl/post_processors/compress_processor'
-require 'packer_dsl/post_processors/docker_import_processor'
-require 'packer_dsl/post_processors/docker_push_processor'
-require 'packer_dsl/post_processors/docker_save_processor'
-require 'packer_dsl/post_processors/docker_tag_processor'
-require 'packer_dsl/post_processors/shell_local_processor'
-require 'packer_dsl/post_processors/vagrant_cloud_processor'
-require 'packer_dsl/post_processors/vagrant_processor'
-require 'packer_dsl/post_processors/vsphere_processor'

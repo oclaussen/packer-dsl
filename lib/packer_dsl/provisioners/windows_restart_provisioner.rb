@@ -21,7 +21,7 @@ require 'packer_dsl/provisioners/base_provisioner'
 module PackerDSL
   module Provisioners
     class WindowsRestartProvisioner < BaseProvisioner
-      Provisioners.register 'windows-restart', WindowsRestartProvisioner
+      register_as WindowsRestartProvisioner, provisioner: 'windows-restart'
 
       property :restart_command
       property :restart_check_command

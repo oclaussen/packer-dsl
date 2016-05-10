@@ -22,7 +22,7 @@ module PackerDSL
   module Builders
     module Amazon
       class AmazonInstanceBuilder < AmazonBuilder
-        Builders.register 'amazon-instance', AmazonInstanceBuilder
+        register_as AmazonInstanceBuilder, builder: 'amazon-instance'
 
         property :account_id
         property :s3_bucket

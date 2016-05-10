@@ -21,7 +21,7 @@ require 'packer_dsl/post_processors/base_processor'
 module PackerDSL
   module PostProcessors
     class DockerTagProcessor < BaseProcessor
-      PostProcessors.register 'docker-tag', DockerTagProcessor
+      register_as DockerTagProcessor, post_processor: 'docker-tag'
 
       property :repository
       property :tag

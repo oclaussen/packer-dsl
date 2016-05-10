@@ -16,18 +16,33 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/post_processors/base_processor'
+require 'packer_dsl/definitions'
+require 'packer_dsl/registry'
+require 'packer_dsl/mixins/hashable'
 
 module PackerDSL
-  module PostProcessors
-    class DockerPushProcessor < BaseProcessor
-      register_as DockerPushProcessor, post_processor: 'docker-push'
+  class Component
+    include Hashable
 
-      property :login
-      property :login_email
-      property :login_username
-      property :login_password
-      property :login_server
+    class << self
+      def register_as(clazz, **kwargs)
+        kwargs.each do |type, name|
+          Registry.instance.register(type, name, clazz)
+        end
+      end
+
+      def property(name)
+        hashable_variables << name
+        define_method name.to_sym do |value|
+          instance_variable_set("@#{name}".to_sym, value)
+        end
+      end
     end
+
+    def include_options(name)
+      Definitions.instance.include_in(name, self)
+    end
+
+    property :type
   end
 end

@@ -21,7 +21,7 @@ require 'packer_dsl/post_processors/base_processor'
 module PackerDSL
   module PostProcessors
     class ArtificeProcessor < BaseProcessor
-      PostProcessors.register 'artifice', ArtificeProcessor
+      register_as ArtificeProcessor, post_processor: 'artifice'
 
       property :files
     end

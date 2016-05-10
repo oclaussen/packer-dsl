@@ -22,7 +22,7 @@ module PackerDSL
   module Provisioners
     module Chef
       class ChefSoloProvisioner < ChefProvisioner
-        Provisioners.register 'chef-solo', ChefSoloProvisioner
+        register_as ChefSoloProvisioner, provisioner: 'chef-solo'
 
         property :cookbook_paths
         property :remote_cookbook_paths

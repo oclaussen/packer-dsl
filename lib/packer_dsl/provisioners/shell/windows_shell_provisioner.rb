@@ -22,7 +22,7 @@ module PackerDSL
   module Provisioners
     module Shell
       class WindowsShellProvisioner < ShellProvisioner
-        Provisioners.register 'windows-shell', WindowsShellProvisioner
+        register_as WindowsShellProvisioner, provisioner: 'windows-shell'
       end
     end
   end

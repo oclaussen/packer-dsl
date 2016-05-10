@@ -21,7 +21,7 @@ require 'packer_dsl/post_processors/base_processor'
 module PackerDSL
   module PostProcessors
     class VagrantProcessor < BaseProcessor
-      PostProcessors.register 'vagrant', VagrantProcessor
+      register_as VagrantProcessor, post_processor: 'vagrant'
 
       property :compression_level
       property :include

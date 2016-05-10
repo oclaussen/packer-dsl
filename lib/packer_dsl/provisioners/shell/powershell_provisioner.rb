@@ -22,7 +22,7 @@ module PackerDSL
   module Provisioners
     module Shell
       class PowershellProvisioner < ShellProvisioner
-        Provisioners.register 'powershell', PowershellProvisioner
+        register_as PowershellProvisioner, provisioner: 'powershell'
 
         property :inline_shebang
         property :remote_folder

@@ -22,7 +22,7 @@ module PackerDSL
   module Builders
     module Amazon
       class AmazonEbsBuilder < AmazonBuilder
-        Builders.register 'amazon-ebs', AmazonEbsBuilder
+        register_as AmazonEbsBuilder, builder: 'amazon-ebs'
 
         property :token
         property :run_volume_tags

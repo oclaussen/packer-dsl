@@ -21,7 +21,7 @@ require 'packer_dsl/post_processors/base_processor'
 module PackerDSL
   module PostProcessors
     class CompressProcessor < BaseProcessor
-      PostProcessors.register 'compress', CompressProcessor
+      register_as CompressProcessor, post_processor: 'compress'
 
       property :output
       property :compression_level

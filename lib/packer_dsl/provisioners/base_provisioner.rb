@@ -16,19 +16,11 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/definitions'
-require 'packer_dsl/mixins/hashable'
+require 'packer_dsl/component'
 
 module PackerDSL
   module Provisioners
-    class BaseProvisioner
-      include Hashable
-
-      def include_options(name)
-        Definitions.include_in(name, self)
-      end
-
-      property :type
+    class BaseProvisioner < Component
       property :pause_before
       property :only
       property :except

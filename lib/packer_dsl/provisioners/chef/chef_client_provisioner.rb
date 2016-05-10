@@ -22,7 +22,7 @@ module PackerDSL
   module Provisioners
     module Chef
       class ChefClientProvisioner < ChefProvisioner
-        Provisioners.register 'chef-client', ChefClientProvisioner
+        register_as ChefClientProvisioner, provisioner: 'chef-client'
 
         property :node_name
         property :server_url

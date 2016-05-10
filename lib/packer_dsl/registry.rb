@@ -16,18 +16,32 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/post_processors/base_processor'
+require 'singleton'
 
 module PackerDSL
-  module PostProcessors
-    class DockerPushProcessor < BaseProcessor
-      register_as DockerPushProcessor, post_processor: 'docker-push'
+  class Registry
+    include Singleton
 
-      property :login
-      property :login_email
-      property :login_username
-      property :login_password
-      property :login_server
+    def category(name)
+      @registry ||= {}
+      @registry[name.to_sym] ||= {}
+    end
+
+    def register(type, name, cls)
+      category(type)[name.to_sym] = cls
+    end
+
+    def retrieve(type, name)
+      cat = category(type)
+      raise "Unregistered item: #{type}" unless cat.key?(name.to_sym)
+      cat[name.to_sym]
+    end
+
+    def from_type(type, name, &blk)
+      new_item = retrieve(type, name).new
+      new_item.type(type) if new_item.respond_to?(:type)
+      new_item.instance_eval(&blk) if block_given?
+      new_item
     end
   end
 end

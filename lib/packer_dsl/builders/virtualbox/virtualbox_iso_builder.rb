@@ -22,7 +22,7 @@ module PackerDSL
   module Builders
     module VirtualBox
       class VirtualboxIsoBuilder < VirtualboxBuilder
-        Builders.register 'virtualbox-iso', VirtualboxIsoBuilder
+        register_as VirtualboxIsoBuilder, builder: 'virtualbox-iso'
 
         property :disk_size
         property :guest_os_type

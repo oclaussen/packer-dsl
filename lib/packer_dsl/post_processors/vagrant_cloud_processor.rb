@@ -21,7 +21,7 @@ require 'packer_dsl/post_processors/base_processor'
 module PackerDSL
   module PostProcessors
     class VagrantCloudProcessor < BaseProcessor
-      PostProcessors.register 'vagrant-cloud', VagrantCloudProcessor
+      register_as VagrantCloudProcessor, post_processor: 'vagrant-cloud'
 
       property :access_token
       property :box_tag

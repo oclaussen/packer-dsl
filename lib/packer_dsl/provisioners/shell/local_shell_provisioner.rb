@@ -22,7 +22,7 @@ module PackerDSL
   module Provisioners
     module Shell
       class LocalShellProvisioner < BaseProvisioner
-        Provisioners.register 'shell-local', LocalShellProvisioner
+        register_as LocalShellProvisioner, provisioner: 'shell-local'
 
         property :command
         property :execute_command

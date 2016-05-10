@@ -27,13 +27,6 @@ module PackerDSL
         # rubocop:disable Style/ClassVars
         @@hashable_variables ||= []
       end
-
-      def property(name)
-        hashable_variables << name
-        define_method name.to_sym do |value|
-          instance_variable_set("@#{name}".to_sym, value)
-        end
-      end
     end
 
     def to_h

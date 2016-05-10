@@ -16,6 +16,7 @@
 # limitations under the License.
 #
 
+require 'packer_dsl/registry'
 require 'packer_dsl/builders'
 require 'packer_dsl/definitions'
 require 'packer_dsl/post_processors'
@@ -49,7 +50,7 @@ module PackerDSL
     end
 
     def define(name, &blk)
-      Definitions.register(name, &blk)
+      Definitions.instance.register(name, &blk)
     end
 
     def include_template(relative_path)
@@ -64,15 +65,18 @@ module PackerDSL
     end
 
     def builder(type, &blk)
-      builders << Builders.from_type(type, &blk)
+      new_builder = Registry.instance.from_type(:builder, type, &blk)
+      builders << new_builder
     end
 
     def post_processor(type, &blk)
-      post_processors << PostProcessors.from_type(type, &blk)
+      new_pp = Registry.instance.from_type(:post_processor, type, &blk)
+      post_processors << new_pp
     end
 
     def provisioner(type, &blk)
-      provisioners << Provisioners.from_type(type, &blk)
+      new_provisioner = Registry.instance.from_type(:provisioner, type, &blk)
+      provisioners << new_provisioner
     end
 
     # TODO: make this nice

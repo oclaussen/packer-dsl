@@ -21,7 +21,7 @@ require 'packer_dsl/builders/base_builder'
 module PackerDSL
   module Builders
     class NullBuilder < BaseBuilder
-      Builders.register 'null', NullBuilder
+      register_as NullBuilder, builder: 'null'
 
       property :ssh_host
       property :ssh_username

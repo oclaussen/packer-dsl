@@ -22,7 +22,7 @@ module PackerDSL
   module Builders
     module Vmware
       class VmwareIsoBuilder < VmwareBuilder
-        Builders.register 'vmware-iso', VmwareIsoBuilder
+        register_as VmwareIsoBuilder, builder: 'vmware-iso'
 
         property :version
         property :disk_size

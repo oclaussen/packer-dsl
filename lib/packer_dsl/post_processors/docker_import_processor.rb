@@ -21,7 +21,7 @@ require 'packer_dsl/post_processors/base_processor'
 module PackerDSL
   module PostProcessors
     class DockerImportProcessor < BaseProcessor
-      PostProcessors.register 'docker-import', DockerImportProcessor
+      register_as DockerImportProcessor, post_processor: 'docker-import'
 
       property :repository
       property :tag

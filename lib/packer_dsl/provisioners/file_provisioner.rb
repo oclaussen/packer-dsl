@@ -21,7 +21,7 @@ require 'packer_dsl/provisioners/base_provisioner'
 module PackerDSL
   module Provisioners
     class FileProvisioner < BaseProvisioner
-      Provisioners.register 'file', FileProvisioner
+      register_as FileProvisioner, provisioner: 'file'
 
       property :source
       property :destination

@@ -21,7 +21,7 @@ require 'packer_dsl/builders/base_builder'
 module PackerDSL
   module Builders
     class DockerBuilder < BaseBuilder
-      Builders.register 'docker', DockerBuilder
+      register_as DockerBuilder, builder: 'docker'
 
       property :commit
       property :discard

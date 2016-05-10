@@ -15,35 +15,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# rubocop:disable Style/ClassVars
 
 module PackerDSL
   module Provisioners
-    module_function
-
-    def register(type, cls)
-      (@@registry ||= {})[type.to_sym] = cls
-    end
-
-    def from_type(type, &blk)
-      new_builder = (@@registry ||= {})[type.to_sym].new
-      new_builder.type type
-      new_builder.instance_eval(&blk) if block_given?
-      new_builder
-    end
+    require 'packer_dsl/provisioners/ansible/ansible_local_provisioner'
+    require 'packer_dsl/provisioners/ansible/ansible_remote_provisioner'
+    require 'packer_dsl/provisioners/chef/chef_client_provisioner'
+    require 'packer_dsl/provisioners/chef/chef_solo_provisioner'
+    require 'packer_dsl/provisioners/puppet/puppet_masterless_provisioner'
+    require 'packer_dsl/provisioners/puppet/puppet_server_provisioner'
+    require 'packer_dsl/provisioners/shell/powershell_provisioner'
+    require 'packer_dsl/provisioners/shell/local_shell_provisioner'
+    require 'packer_dsl/provisioners/shell/remote_shell_provisioner'
+    require 'packer_dsl/provisioners/shell/windows_shell_provisioner'
+    require 'packer_dsl/provisioners/file_provisioner'
+    require 'packer_dsl/provisioners/salt_provisioner'
+    require 'packer_dsl/provisioners/windows_restart_provisioner'
   end
 end
-
-require 'packer_dsl/provisioners/ansible/ansible_local_provisioner'
-require 'packer_dsl/provisioners/ansible/ansible_remote_provisioner'
-require 'packer_dsl/provisioners/chef/chef_client_provisioner'
-require 'packer_dsl/provisioners/chef/chef_solo_provisioner'
-require 'packer_dsl/provisioners/puppet/puppet_masterless_provisioner'
-require 'packer_dsl/provisioners/puppet/puppet_server_provisioner'
-require 'packer_dsl/provisioners/shell/powershell_provisioner'
-require 'packer_dsl/provisioners/shell/local_shell_provisioner'
-require 'packer_dsl/provisioners/shell/remote_shell_provisioner'
-require 'packer_dsl/provisioners/shell/windows_shell_provisioner'
-require 'packer_dsl/provisioners/file_provisioner'
-require 'packer_dsl/provisioners/salt_provisioner'
-require 'packer_dsl/provisioners/windows_restart_provisioner'
