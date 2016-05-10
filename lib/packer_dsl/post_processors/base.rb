@@ -16,14 +16,13 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/post_processors/base_processor'
+require 'packer_dsl/component'
 
 module PackerDSL
   module PostProcessors
-    class ArtificeProcessor < BaseProcessor
-      register_as ArtificeProcessor, post_processor: 'artifice'
-
-      property :files
+    class Base < Component
+      property :only
+      property :except
     end
   end
 end

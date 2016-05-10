@@ -16,20 +16,19 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/post_processors/base_processor'
+require 'packer_dsl/post_processors/base'
 
 module PackerDSL
   module PostProcessors
-    class VagrantCloudProcessor < BaseProcessor
-      register_as VagrantCloudProcessor, post_processor: 'vagrant-cloud'
+    class Vagrant < PostProcessors::Base
+      register_as PostProcessors::Vagrant, post_processor: 'vagrant'
 
-      property :access_token
-      property :box_tag
-      property :version
-      property :no_release
-      property :vagrant_cloud_url
-      property :version_description
-      property :box_download_url
+      property :compression_level
+      property :include
+      property :keep_input_artifact
+      property :output
+      property :vagrantfile_template
+      property :override
     end
   end
 end

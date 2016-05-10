@@ -16,20 +16,20 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/post_processors/base_processor'
+require 'packer_dsl/post_processors/base'
 
 module PackerDSL
   module PostProcessors
-    class AmazonImportProcessor < BaseProcessor
-      register_as AmazonImportProcessor, post_processor: 'amazon-import'
+    module Docker
+      class Push < PostProcessors::Base
+        register_as Docker::Push, post_processor: 'docker-push'
 
-      property :access_key
-      property :region
-      property :secret_key
-      property :skip_clean
-      property :tags
-      property :s3_bucket_name
-      property :s3_key_name
+        property :login
+        property :login_email
+        property :login_username
+        property :login_password
+        property :login_server
+      end
     end
   end
 end

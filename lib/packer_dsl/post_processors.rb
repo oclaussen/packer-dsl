@@ -18,17 +18,16 @@
 
 module PackerDSL
   module PostProcessors
-    require 'packer_dsl/post_processors/amazon_import_processor'
-    require 'packer_dsl/post_processors/artifice_processor'
-    require 'packer_dsl/post_processors/atlas_processor'
-    require 'packer_dsl/post_processors/compress_processor'
-    require 'packer_dsl/post_processors/docker_import_processor'
-    require 'packer_dsl/post_processors/docker_push_processor'
-    require 'packer_dsl/post_processors/docker_save_processor'
-    require 'packer_dsl/post_processors/docker_tag_processor'
-    require 'packer_dsl/post_processors/shell_local_processor'
-    require 'packer_dsl/post_processors/vagrant_cloud_processor'
-    require 'packer_dsl/post_processors/vagrant_processor'
-    require 'packer_dsl/post_processors/vsphere_processor'
+    require 'packer_dsl/post_processors/amazon/import'
+    require 'packer_dsl/post_processors/docker/import'
+    require 'packer_dsl/post_processors/docker/push'
+    require 'packer_dsl/post_processors/docker/save'
+    require 'packer_dsl/post_processors/docker/tag'
+    require 'packer_dsl/post_processors/shell/local'
+    require 'packer_dsl/post_processors/artifice'
+    require 'packer_dsl/post_processors/atlas'
+    require 'packer_dsl/post_processors/compress'
+    require 'packer_dsl/post_processors/vagrant'
+    require 'packer_dsl/post_processors/vsphere'
   end
 end

@@ -16,19 +16,16 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/post_processors/base_processor'
+require 'packer_dsl/post_processors/base'
 
 module PackerDSL
   module PostProcessors
-    class ShellLocalProcessor < BaseProcessor
-      register_as ShellLocalProcessor, post_processor: 'shell-local'
+    class Compress < PostProcessors::Base
+      register_as PostProcessors::Compress, post_processor: 'compress'
 
-      property :inline
-      property :script
-      property :scripts
-      property :environment_vars
-      property :execute_command
-      property :inline_shebang
+      property :output
+      property :compression_level
+      property :keep_input_artifact
     end
   end
 end

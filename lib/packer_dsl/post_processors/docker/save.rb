@@ -16,27 +16,16 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/post_processors/base_processor'
+require 'packer_dsl/post_processors/base'
 
 module PackerDSL
   module PostProcessors
-    class VsphereProcessor < BaseProcessor
-      register_as VsphereProcessor, post_processor: 'vsphere'
+    module Docker
+      class Save < PostProcessors::Base
+        register_as Docker::Save, post_processor: 'docker-save'
 
-      property :cluster
-      property :datacenter
-      property :datastore
-      property :host
-      property :password
-      property :resource_pool
-      property :username
-      property :vm_name
-      property :disk_mode
-      property :insecure
-      property :vm_folder
-      property :vm_network
-      property :overwrite
-      property :options
+        property :path
+      end
     end
   end
 end

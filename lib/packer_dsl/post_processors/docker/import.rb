@@ -16,16 +16,17 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/post_processors/base_processor'
+require 'packer_dsl/post_processors/base'
 
 module PackerDSL
   module PostProcessors
-    class CompressProcessor < BaseProcessor
-      register_as CompressProcessor, post_processor: 'compress'
+    module Docker
+      class Import < PostProcessors::Base
+        register_as Docker::Import, post_processor: 'docker-import'
 
-      property :output
-      property :compression_level
-      property :keep_input_artifact
+        property :repository
+        property :tag
+      end
     end
   end
 end

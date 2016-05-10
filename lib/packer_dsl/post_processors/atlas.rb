@@ -16,19 +16,18 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/post_processors/base_processor'
+require 'packer_dsl/post_processors/base'
 
 module PackerDSL
   module PostProcessors
-    class VagrantProcessor < BaseProcessor
-      register_as VagrantProcessor, post_processor: 'vagrant'
+    class Atlas < PostProcessors::Base
+      register_as PostProcessors::Atlas, post_processor: 'atlas'
 
-      property :compression_level
-      property :include
-      property :keep_input_artifact
-      property :output
-      property :vagrantfile_template
-      property :override
+      property :token
+      property :artifact
+      property :artifact_type
+      property :atlas_url
+      property :metadata
     end
   end
 end

@@ -16,14 +16,21 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/post_processors/base_processor'
+require 'packer_dsl/post_processors/base'
 
 module PackerDSL
   module PostProcessors
-    class DockerSaveProcessor < BaseProcessor
-      register_as DockerSaveProcessor, post_processor: 'docker-save'
+    module Shell
+      class Local < PostProcessors::Base
+        register_as Shell::Local, post_processor: 'shell-local'
 
-      property :path
+        property :inline
+        property :script
+        property :scripts
+        property :environment_vars
+        property :execute_command
+        property :inline_shebang
+      end
     end
   end
 end

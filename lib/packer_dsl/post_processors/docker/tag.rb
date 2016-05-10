@@ -16,15 +16,18 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/post_processors/base_processor'
+require 'packer_dsl/post_processors/base'
 
 module PackerDSL
   module PostProcessors
-    class DockerImportProcessor < BaseProcessor
-      register_as DockerImportProcessor, post_processor: 'docker-import'
+    module Docker
+      class Tag < PostProcessors::Base
+        register_as Docker::Tag, post_processor: 'docker-tag'
 
-      property :repository
-      property :tag
+        property :repository
+        property :tag
+        property :force
+      end
     end
   end
 end
