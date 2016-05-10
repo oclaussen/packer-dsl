@@ -36,12 +36,5 @@ module PackerDSL
       raise "Unregistered item: #{type}" unless cat.key?(name.to_sym)
       cat[name.to_sym]
     end
-
-    def from_type(type, name, &blk)
-      new_item = retrieve(type, name).new
-      new_item.type(type) if new_item.respond_to?(:type)
-      new_item.instance_eval(&blk) if block_given?
-      new_item
-    end
   end
 end

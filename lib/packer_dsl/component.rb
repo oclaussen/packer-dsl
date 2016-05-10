@@ -16,22 +16,29 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/definitions'
-require 'packer_dsl/mixins/hashable'
 require 'packer_dsl/mixins/component_dsl'
+require 'packer_dsl/mixins/hashable'
 
 module PackerDSL
   class Component
     include Hashable
     include ComponentDSL
 
-    def include_options(name)
-      Definitions.instance.include_in(name, self)
+    def initialize(type, template)
+      @type = type
+      @template = template
+      self.class.hashable_variables << :type
     end
 
     def type(value = nil)
       return @type if value.nil?
       @type = value
+    end
+
+    def include_options(name)
+      definition = @template.definitions[name.to_sym]
+      raise "Undefined options: #{name}" if definition.nil?
+      instance_eval(&definition)
     end
   end
 end

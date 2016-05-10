@@ -18,7 +18,6 @@
 
 require 'packer_dsl/registry'
 require 'packer_dsl/builders'
-require 'packer_dsl/definitions'
 require 'packer_dsl/post_processors'
 require 'packer_dsl/provisioners'
 require 'packer_dsl/mixins/from_file'
@@ -27,12 +26,14 @@ module PackerDSL
   class Template
     include FromFile
 
+    attr_reader :definitions
     attr_reader :variables
     attr_reader :builders
     attr_reader :post_processors
     attr_reader :provisioners
 
     def initialize
+      @definitions = {}
       @variables = {}
       @builders = []
       @post_processors = []
@@ -50,7 +51,7 @@ module PackerDSL
     end
 
     def define(name, &blk)
-      Definitions.instance.register(name, &blk)
+      definitions[name.to_sym] = blk
     end
 
     def include_template(relative_path)
@@ -65,18 +66,15 @@ module PackerDSL
     end
 
     def builder(type, &blk)
-      new_builder = Registry.instance.from_type(:builder, type, &blk)
-      builders << new_builder
+      builders << build_component(:builder, type, &blk)
     end
 
     def post_processor(type, &blk)
-      new_pp = Registry.instance.from_type(:post_processor, type, &blk)
-      post_processors << new_pp
+      post_processors << build_component(:post_processor, type, &blk)
     end
 
     def provisioner(type, &blk)
-      new_provisioner = Registry.instance.from_type(:provisioner, type, &blk)
-      provisioners << new_provisioner
+      provisioners << build_component(:provisioner, type, &blk)
     end
 
     # TODO: make this nice
@@ -92,6 +90,14 @@ module PackerDSL
       hash['post-processors'] = post_processors.map(&:to_h) unless post_processors.empty?
       hash[:provisioners] = provisioners.map(&:to_h) unless provisioners.empty?
       hash
+    end
+
+    private
+
+    def build_component(type, name, &blk)
+      new_item = Registry.instance.retrieve(type, name).new(name, self)
+      new_item.instance_eval(&blk) if block_given?
+      new_item
     end
   end
 end
