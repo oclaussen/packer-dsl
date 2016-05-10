@@ -16,22 +16,33 @@
 # limitations under the License.
 #
 
-require 'packer_dsl/definitions'
+require 'packer_dsl/registry'
 require 'packer_dsl/mixins/hashable'
-require 'packer_dsl/mixins/component_dsl'
 
 module PackerDSL
-  class Component
-    include Hashable
-    include ComponentDSL
-
-    def include_options(name)
-      Definitions.instance.include_in(name, self)
+  module ComponentDSL
+    def self.included(base_class)
+      base_class.extend(ClassMethods)
     end
 
-    def type(value = nil)
-      return @type if value.nil?
-      @type = value
+    module ClassMethods
+      def register_as(clazz, **kwargs)
+        kwargs.each do |type, name|
+          Registry.instance.register(type, name, clazz)
+        end
+      end
+
+      def property(name)
+        hashable_variables << name if include? Hashable
+        variable_name = "@#{name}".to_sym
+        define_method name.to_sym do |value = nil|
+          if !value.nil?
+            instance_variable_set(variable_name, value)
+          elsif instance_variable_defined?(variable_name)
+            instance_variable_get(variable_name)
+          end
+        end
+      end
     end
   end
 end
