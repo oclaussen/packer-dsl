@@ -16,18 +16,24 @@
 # limitations under the License.
 #
 
+require 'packer_dsl/builders/base'
+
 module PackerDSL
   module Builders
-    require 'packer_dsl/builders/amazon/chroot'
-    require 'packer_dsl/builders/amazon/ebs'
-    require 'packer_dsl/builders/amazon/instance'
-    require 'packer_dsl/builders/virtualbox/iso'
-    require 'packer_dsl/builders/virtualbox/ovf'
-    require 'packer_dsl/builders/vmware/iso'
-    require 'packer_dsl/builders/vmware/vmx'
-    require 'packer_dsl/builders/docker'
-    require 'packer_dsl/builders/null'
-    require 'packer_dsl/builders/qemu'
-    require 'packer_dsl/builders/chroot'
+    class Chroot < Builders::Base
+      register_as Chroot, builder: 'chroot'
+
+      property :image_name
+      property :image_size
+      property :command_wrapper
+
+      property :chroot_mounts
+      property :mount_path
+      property :mount_partitions
+      property :mount_options
+      property :pre_mount_commands
+      property :post_mount_commands
+      property :copy_files
+    end
   end
 end
